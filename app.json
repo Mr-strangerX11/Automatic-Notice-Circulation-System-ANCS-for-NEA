@@ -1,0 +1,74 @@
+{
+  "name": "ANCS for NEA",
+  "description": "Automatic Notice Circulation System for Nepal Electricity Authority",
+  "keywords": ["django", "react", "notice-management", "notification-system"],
+  "website": "https://github.com/Mr-strangerX11/Automatic-Notice-Circulation-System-ANCS-for-NEA",
+  "repository": "https://github.com/Mr-strangerX11/Automatic-Notice-Circulation-System-ANCS-for-NEA",
+  "logo": "",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "cd backend && python manage.py migrate && python manage.py createsuperuser --noinput --email admin@nea.local --name Admin || true"
+  },
+  "env": {
+    "DJANGO_SECRET_KEY": {
+      "description": "Secret key for Django. Generate a secure random string.",
+      "generator": "secret"
+    },
+    "DJANGO_DEBUG": {
+      "description": "Debug mode (set to False in production)",
+      "value": "False"
+    },
+    "DJANGO_ALLOWED_HOSTS": {
+      "description": "Allowed hosts for Django (comma-separated)",
+      "value": ".herokuapp.com"
+    },
+    "SMTP_HOST": {
+      "description": "SMTP server hostname",
+      "required": true
+    },
+    "SMTP_PORT": {
+      "description": "SMTP server port",
+      "value": "587"
+    },
+    "SMTP_USERNAME": {
+      "description": "SMTP username",
+      "required": true
+    },
+    "SMTP_PASSWORD": {
+      "description": "SMTP password",
+      "required": true
+    },
+    "SMTP_USE_TLS": {
+      "description": "Use TLS for SMTP",
+      "value": "True"
+    },
+    "EMAIL_FROM": {
+      "description": "From email address",
+      "value": "no-reply@nea.local"
+    },
+    "FCM_SERVER_KEY": {
+      "description": "Firebase Cloud Messaging server key",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "stack": "heroku-22"
+}

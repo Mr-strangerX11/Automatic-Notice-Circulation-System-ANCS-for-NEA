@@ -1,0 +1,88 @@
+services:
+  # Backend API
+  - type: web
+    name: ancs-backend
+    env: python
+    region: oregon
+    plan: starter
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: python manage.py migrate && gunicorn ancs_backend.wsgi:application --bind 0.0.0.0:$PORT --workers 4 --timeout 120
+    rootDir: backend
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: False
+      - key: DJANGO_ALLOWED_HOSTS
+        sync: false
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: ancs-db
+          property: database
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: ancs-db
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: ancs-db
+          property: password
+      - key: POSTGRES_HOST
+        fromDatabase:
+          name: ancs-db
+          property: host
+      - key: POSTGRES_PORT
+        fromDatabase:
+          name: ancs-db
+          property: port
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_USE_TLS
+        value: True
+      - key: EMAIL_FROM
+        sync: false
+      - key: FCM_SERVER_KEY
+        sync: false
+    healthCheckPath: /api/health/
+
+  # Frontend Static Site
+  - type: web
+    name: ancs-frontend
+    env: static
+    region: oregon
+    plan: starter
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+      - key: VITE_FIREBASE_API_KEY
+        sync: false
+      - key: VITE_FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: VITE_FIREBASE_PROJECT_ID
+        sync: false
+      - key: VITE_FIREBASE_MESSAGING_SENDER_ID
+        sync: false
+      - key: VITE_FIREBASE_APP_ID
+        sync: false
+      - key: VITE_FIREBASE_VAPID_KEY
+        sync: false
+
+databases:
+  - name: ancs-db
+    databaseName: ancs_db
+    user: ancs_user
+    plan: starter

@@ -65,6 +65,45 @@ Services: `db` (Postgres 15), `backend` (Gunicorn), `nginx` reverse proxy on por
 - Backend: run `python manage.py test` (add tests as needed).
 - Frontend: Vite build check `npm run build`.
 
+## Deployment
+
+For comprehensive deployment instructions, see **[DEPLOYMENT.md](DEPLOYMENT.md)**.
+
+### Quick Deploy with Docker
+
+```bash
+# Run setup script
+./deploy/setup.sh
+
+# Deploy in production mode
+./deploy/deploy.sh prod
+
+# Check health
+./deploy/health-check.sh
+```
+
+### Platform-Specific Deployments
+
+This project includes ready-to-use configurations for:
+
+- **Railway** - One-click deploy with `railway.json`
+- **Render** - Auto-deploy with `render.yaml`
+- **Heroku** - Deploy with `Procfile` and `app.json`
+- **Vercel/Netlify** - Frontend static hosting
+- **AWS EC2** - Self-hosted with detailed guide
+- **DigitalOcean App Platform** - Managed deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions for each platform.
+
+### CI/CD
+
+GitHub Actions workflows are included for:
+- Automated testing on push/PR
+- Docker image building
+- Code linting
+
+See `.github/workflows/ci.yml` for configuration.
+
 ## Deployment Notes
 - Backend: build backend image, run with Gunicorn behind Nginx (see `docker-compose.yml` and `nginx.conf`). Set env vars and mount volume for static/media. Run migrations before serving.
 - Frontend: `npm run build` then deploy `dist` to Netlify/Vercel; set `VITE_API_URL` env to backend HTTPS URL.
