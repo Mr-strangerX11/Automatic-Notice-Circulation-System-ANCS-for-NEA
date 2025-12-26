@@ -38,10 +38,31 @@ fi
 # Generate Django secret key if needed
 if grep -q "change-me" .env 2>/dev/null; then
     echo -e "${YELLOW}Generating Django secret key...${NC}"
-    SECRET_KEY=$(python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
-    sed -i.bak "s/DJANGO_SECRET_KEY=change-me/DJANGO_SECRET_KEY=$SECRET_KEY/" .env
-    rm .env.bak 2>/dev/null || true
-    echo -e "${GREEN}✓ Django secret key generated${NC}"
+    
+    # Try to generate with Django
+    if python3 -c 'import django' 2>/dev/null; then
+        SECRET_KEY=$(python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
+    elif command -v openssl &> /dev/null; then
+        # Fallback: generate a random key using openssl (remove newlines and special chars)
+        SECRET_KEY=$(openssl rand -base64 50 | tr -d "=+/\n" | cut -c1-50)
+    else
+        echo -e "${YELLOW}⚠ Please manually set DJANGO_SECRET_KEY in .env${NC}"
+        SECRET_KEY=""
+    fi
+    
+    if [ -n "$SECRET_KEY" ]; then
+        # Use printf to safely update the file
+        tmp_file=$(mktemp)
+        while IFS= read -r line; do
+            if [[ $line == DJANGO_SECRET_KEY=* ]]; then
+                echo "DJANGO_SECRET_KEY=$SECRET_KEY"
+            else
+                echo "$line"
+            fi
+        done < .env > "$tmp_file"
+        mv "$tmp_file" .env
+        echo -e "${GREEN}✓ Secret key generated${NC}"
+    fi
 fi
 
 echo ""
