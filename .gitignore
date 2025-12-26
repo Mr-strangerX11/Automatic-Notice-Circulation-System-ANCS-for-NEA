@@ -22,7 +22,12 @@ frontend/dist/
 
 # Env
 .env
+.env.production
+.env.local
+.env.*.local
 frontend/.env
+frontend/.env.production
+frontend/.env.local
 
 # VS Code
 .vscode/

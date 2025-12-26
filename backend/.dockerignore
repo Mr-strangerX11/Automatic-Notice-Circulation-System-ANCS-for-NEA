@@ -1,0 +1,57 @@
+# Git
+.git
+.gitignore
+.github
+
+# Documentation
+*.md
+DEPLOYMENT.md
+README.md
+
+# Environment files (should be set via env vars)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.venv
+venv/
+ENV/
+
+# Django
+*.log
+db.sqlite3
+staticfiles/
+media/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Frontend (for backend Dockerfile)
+frontend/
+node_modules/
+
+# Deploy scripts
+deploy/

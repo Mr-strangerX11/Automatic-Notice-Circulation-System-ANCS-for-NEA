@@ -1,6 +1,22 @@
 # Automatic Notice Circulation System (ANCS) for NEA
 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/ancs-nea)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Mr-strangerX11/Automatic-Notice-Circulation-System-ANCS-for-NEA)
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Mr-strangerX11/Automatic-Notice-Circulation-System-ANCS-for-NEA)
+
 Full-stack internal system for uploading a notice once and automatically circulating via email, SMS (mock Sparrow/NTC), push (FCM), and dashboards. Implements JWT auth, RBAC for 5 roles, tracking (seen/unseen/downloads), delivery logs, admin/department dashboards, and a digital noticeboard.
+
+## 🚀 Quick Deploy
+
+Choose your preferred hosting platform:
+
+- **[Railway](https://railway.app)** - Recommended for production (automatic HTTPS, easy setup)
+- **[Render](https://render.com)** - Free tier available, great for testing
+- **[Heroku](https://heroku.com)** - Click "Deploy to Heroku" button above
+- **[Vercel](https://vercel.com)** - Best for frontend only
+- **[Docker](./DEPLOYMENT.md#docker-deployment)** - Self-hosted with full control
+
+📖 **See [HOSTING_GUIDE.md](HOSTING_GUIDE.md) for step-by-step instructions**
 
 ## Tech Stack
 - Backend: Django REST Framework, PostgreSQL, JWT (SimpleJWT), Gunicorn, Nginx
@@ -64,6 +80,45 @@ Services: `db` (Postgres 15), `backend` (Gunicorn), `nginx` reverse proxy on por
 ## Testing
 - Backend: run `python manage.py test` (add tests as needed).
 - Frontend: Vite build check `npm run build`.
+
+## Deployment
+
+For comprehensive deployment instructions, see **[DEPLOYMENT.md](DEPLOYMENT.md)**.
+
+### Quick Deploy with Docker
+
+```bash
+# Run setup script
+./deploy/setup.sh
+
+# Deploy in production mode
+./deploy/deploy.sh prod
+
+# Check health
+./deploy/health-check.sh
+```
+
+### Platform-Specific Deployments
+
+This project includes ready-to-use configurations for:
+
+- **Railway** - One-click deploy with `railway.json`
+- **Render** - Auto-deploy with `render.yaml`
+- **Heroku** - Deploy with `Procfile` and `app.json`
+- **Vercel/Netlify** - Frontend static hosting
+- **AWS EC2** - Self-hosted with detailed guide
+- **DigitalOcean App Platform** - Managed deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions for each platform.
+
+### CI/CD
+
+GitHub Actions workflows are included for:
+- Automated testing on push/PR
+- Docker image building
+- Code linting
+
+See `.github/workflows/ci.yml` for configuration.
 
 ## Deployment Notes
 - Backend: build backend image, run with Gunicorn behind Nginx (see `docker-compose.yml` and `nginx.conf`). Set env vars and mount volume for static/media. Run migrations before serving.
