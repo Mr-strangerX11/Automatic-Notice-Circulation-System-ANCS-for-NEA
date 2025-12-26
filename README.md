@@ -1,6 +1,22 @@
 # Automatic Notice Circulation System (ANCS) for NEA
 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/ancs-nea)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Mr-strangerX11/Automatic-Notice-Circulation-System-ANCS-for-NEA)
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Mr-strangerX11/Automatic-Notice-Circulation-System-ANCS-for-NEA)
+
 Full-stack internal system for uploading a notice once and automatically circulating via email, SMS (mock Sparrow/NTC), push (FCM), and dashboards. Implements JWT auth, RBAC for 5 roles, tracking (seen/unseen/downloads), delivery logs, admin/department dashboards, and a digital noticeboard.
+
+## 🚀 Quick Deploy
+
+Choose your preferred hosting platform:
+
+- **[Railway](https://railway.app)** - Recommended for production (automatic HTTPS, easy setup)
+- **[Render](https://render.com)** - Free tier available, great for testing
+- **[Heroku](https://heroku.com)** - Click "Deploy to Heroku" button above
+- **[Vercel](https://vercel.com)** - Best for frontend only
+- **[Docker](./DEPLOYMENT.md#docker-deployment)** - Self-hosted with full control
+
+📖 **See [HOSTING_GUIDE.md](HOSTING_GUIDE.md) for step-by-step instructions**
 
 ## Tech Stack
 - Backend: Django REST Framework, PostgreSQL, JWT (SimpleJWT), Gunicorn, Nginx
