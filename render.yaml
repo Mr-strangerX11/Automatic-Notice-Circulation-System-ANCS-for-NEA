@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: ancs-backend
+    env: docker
+    plan: free
+    dockerfilePath: backend/Dockerfile
+    dockerCommand: gunicorn ancs_backend.wsgi:application --bind 0.0.0.0:8000
+    autoDeploy: true
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "false"
+      - key: USE_SQLITE
+        value: "false"
+      - key: SECRET_KEY
+        generate: true
+      - key: ALLOWED_HOSTS
+        value: "*"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://mr-strangerx11.github.io,https://mr-strangerx11.github.io/Automatic-Notice-Circulation-System-ANCS-for-NEA"
+      - key: FCM_SERVER_KEY
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ancs-db
+          property: connectionString
+    postDeployCommand: "python manage.py migrate"
+
+  - type: postgres
+    name: ancs-db
+    plan: free
