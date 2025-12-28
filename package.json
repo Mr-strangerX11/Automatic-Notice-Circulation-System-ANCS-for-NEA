@@ -1,10 +1,10 @@
 {
-  "homepage": "https://kashichaudhary.github.io/Automatic-Notice-Circulation-System-ANCS-for-NEA",
+  "homepage": "https://mr-strangerx11.github.io/Automatic-Notice-Circulation-System-ANCS-for-NEA",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "predeploy": "npm ci --prefix frontend && npm run build --prefix frontend",
+    "deploy": "gh-pages -d frontend/dist"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0"
