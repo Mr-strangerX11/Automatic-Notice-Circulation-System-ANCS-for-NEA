@@ -19,6 +19,10 @@ services:
         value: "https://mr-strangerx11.github.io,https://mr-strangerx11.github.io/Automatic-Notice-Circulation-System-ANCS-for-NEA"
       - key: FCM_SERVER_KEY
         sync: false
+      - key: ADMIN_EMAIL
+        value: "admin@nea.local"
+      - key: ADMIN_PASSWORD
+        sync: false
       - key: SMTP_HOST
         sync: false
       - key: SMTP_PORT
@@ -31,7 +35,7 @@ services:
         fromDatabase:
           name: ancs-db
           property: connectionString
-    postDeployCommand: "python manage.py migrate"
+    postDeployCommand: "python manage.py migrate && python manage.py create_admin_user"
 
   - type: postgres
     name: ancs-db
