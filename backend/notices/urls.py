@@ -12,6 +12,7 @@ from .views import (
     NotifyEmail,
     NotifySMS,
     NotifyPush,
+    health,
 )
 
 router = DefaultRouter()
@@ -29,4 +30,5 @@ urlpatterns = [
     path("notify/email", NotifyEmail.as_view(), name="notify_email"),
     path("notify/sms", NotifySMS.as_view(), name="notify_sms"),
     path("notify/push", NotifyPush.as_view(), name="notify_push"),
+    path("health", health, name="health"),
 ]

@@ -216,3 +216,9 @@ class NotifyPush(APIView):
     def post(self, request):
         result = send_push_notice(request.data.get("title"), request.data.get("body"), request.data.get("tokens", []))
         return Response(result)
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def health(request):
+    return Response({"status": "ok", "time": timezone.now().isoformat()})
