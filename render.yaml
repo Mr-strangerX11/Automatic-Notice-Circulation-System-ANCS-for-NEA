@@ -37,6 +37,17 @@ services:
           property: connectionString
     postDeployCommand: "python manage.py migrate && python manage.py create_admin_user"
 
+  - type: web
+    name: ancs-frontend
+    env: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm run preview
+    autoDeploy: true
+    envVars:
+      - key: VITE_API_URL
+        value: "https://ancs-backend.onrender.com"
+
   - type: postgres
     name: ancs-db
     plan: free
