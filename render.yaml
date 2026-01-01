@@ -41,8 +41,8 @@ services:
     name: ancs-frontend
     env: node
     plan: free
-    buildCommand: npm ci --prefix frontend && npm run build --prefix frontend
-    startCommand: npm start --prefix frontend
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: bash start-frontend.sh
     autoDeploy: true
     envVars:
       - key: VITE_API_URL
