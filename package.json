@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "npm run dev --prefix frontend",
     "build": "npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "bash start-frontend.sh",
     "predeploy": "npm ci --prefix frontend && VITE_GH_PAGES_BASE=/Automatic-Notice-Circulation-System-ANCS-for-NEA/ npm run build --prefix frontend && cp frontend/dist/index.html frontend/dist/404.html",
     "deploy": "gh-pages -d frontend/dist"
   },

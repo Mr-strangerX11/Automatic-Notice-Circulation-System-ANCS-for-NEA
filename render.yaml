@@ -46,7 +46,7 @@ services:
     env: node
     plan: free
     buildCommand: cd frontend && npm install && npm run build
-    startCommand: bash start-frontend.sh
+    startCommand: npm start
     autoDeploy: true
     envVars:
       - key: VITE_API_URL
